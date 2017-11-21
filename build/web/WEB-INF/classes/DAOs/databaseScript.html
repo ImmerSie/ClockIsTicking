@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+        create table User(
+            userID int not null auto incremented,
+            username varchar(50) not null,
+            email varchar(150) not null,
+            password varchar(32) not null,
+            dateCreated date not null,
+            type varchar(32) not null,
+            primary key (userID)
+        );
+
+        create table Thread(
+            threadID int not null auto incremented,
+            title varchar(150) not null,
+            description varchar(1000) not null,
+            dateCreated date not null,
+            userID int not null,
+            primary key (threadID),
+            foreign key (userID) references User(userID)
+        );
+
+        create table Post(
+            postID int not null auto incremented,
+            dateCreated date not null,
+            threadID int not null,
+            primary key (postID),
+            foreign key (threadID) references Thread(threadID)
+        );
+
+        create table Comment(
+            commentID int not null auto incremented,
+            dateCreated date not null,
+            name varchar(50),
+            postID int not null,
+            primary key (commentID),
+            foreign key (postID) references Post(postID)
+        );
+
+        create table Content(
+            contentID int not null auto incremented,
+            type varchar(32) not null,
+            content varchar(10000),
+            postID int null,
+            commentID int null,
+            primary key (contentID),
+            foreign key (postID) references Post(postID),
+        );
+        
+        </div>
+    </body>
+</html>
